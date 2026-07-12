@@ -51,7 +51,7 @@
     "commander": "^13.1.0",
     "express": "^5.1.0",
     "jose": "^6.2.3",
-    "undici": "^6.26.0",
+    "undici": "^6.27.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
