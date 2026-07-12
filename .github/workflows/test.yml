@@ -65,7 +65,15 @@ jobs:
         run: pnpm typecheck
 
       - name: Test
-        run: pnpm test
+        shell: bash
+        run: |
+          if [[ -n "$CONTEXT7_API_KEY" ]]; then
+            pnpm test
+          else
+            echo "CONTEXT7_API_KEY is unavailable; running the offline test suite."
+            pnpm --recursive --filter '!@upstash/context7-sdk' run test
+            pnpm --filter @upstash/context7-sdk exec vitest run src/http/index.test.ts
+          fi
         env:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           AWS_BEARER_TOKEN_BEDROCK: ${{ secrets.AWS_BEARER_TOKEN_BEDROCK }}
